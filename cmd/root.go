@@ -7,6 +7,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var Owner string
+var Repository string
+
+func init() {
+	rootCmd.PersistentFlags().StringVarP(&Owner, "owner", "O", "", "Github owner (organization or user)")
+	rootCmd.PersistentFlags().StringVarP(&Repository, "repository", "R", "", "Github repository")
+}
+
 var rootCmd = &cobra.Command{
 	Use:   "ghm",
 	Short: "Github Metrics is a very fast Github metrics calculator",
