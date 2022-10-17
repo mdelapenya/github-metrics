@@ -39,6 +39,9 @@ func getExponentialBackOff(elapsedTime time.Duration) *backoff.ExponentialBackOf
 func repoGet(resource string, owner string, repository string) ([]byte, error) {
 	req := http.Request{
 		URL: "https://api.github.com/repos/" + owner + "/" + repository + "/" + resource,
+		Headers: map[string]string{
+			"User-Agent": "request",
+		},
 	}
 
 	return searchWithBackoff(req)
