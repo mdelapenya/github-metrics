@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/mdelapenya/github-metrics/http"
+	"github.com/mdelapenya/github-metrics/github"
 	"github.com/mdelapenya/github-metrics/types"
 	"github.com/spf13/cobra"
 )
@@ -23,15 +23,23 @@ var labelsCmd = &cobra.Command{
 }
 
 func getLabels() {
-	req := http.Request{
-		URL: "https://api.github.com/repos/" + Owner + "/" + Repository + "/labels",
-	}
-	response, err := http.Get(req)
+	response, err := github.Labels(Owner, Repository)
 	if err != nil {
 		log.Fatalf("failed to proceed the request: %v", err)
 	}
 
 	var labels []types.Label
 	json.Unmarshal(response, &labels)
-	log.Println(labels)
+
+	for _, label := range labels {
+		response, err := github.IssuesCountByLabel(Owner, Repository, label.Name)
+		if err != nil {
+			log.Printf("failed to get issues count for '%s' label. Continuing. error: %v", label.Name, err)
+			continue
+		}
+
+		var issuesSearch types.IssuesSearch
+		json.Unmarshal(response, &issuesSearch)
+		log.Printf("Number of Issues for %s: %d\n", label.Name, issuesSearch.TotalCount)
+	}
 }
