@@ -32,6 +32,7 @@ func getLabels() {
 	var labels []types.Label
 	json.Unmarshal(response, &labels)
 
+	log.Printf("Repository contains %d labels\n", len(labels))
 	failedLabels := []string{}
 
 	formatter := formatters.Get(Format, OutputFile)
