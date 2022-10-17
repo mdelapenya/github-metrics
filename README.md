@@ -9,7 +9,7 @@ It will perform certain API calls using HTTP requests and backoff strategies to 
 We'd like to get, for each label, how many issues are labelled for the label.
 
 ```shell
-ghm labels -O mdelapenya -R github-metrics
+ghm labels -O testcontainers -R testcontainers-java
 ```
 
 It will first get all the labels in the repository, and for each it will get the total number of issues, printing the result in console:
