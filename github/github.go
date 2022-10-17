@@ -37,11 +37,32 @@ func getExponentialBackOff(elapsedTime time.Duration) *backoff.ExponentialBackOf
 }
 
 func repoGet(resource string, owner string, repository string) ([]byte, error) {
-	req := http.Request{
-		URL: "https://api.github.com/repos/" + owner + "/" + repository + "/" + resource,
+	exp := getExponentialBackOff(time.Minute * 1)
+	var bytes []byte
+	retryCount := 0
+
+	getFn := func() error {
+		req := http.Request{
+			URL: "https://api.github.com/repos/" + owner + "/" + repository + "/" + resource,
+		}
+
+		b, err := http.Get(req)
+		if err != nil {
+			retryCount++
+			fmt.Printf(">>> [%d][%s] error while processing the Github query for \"%s\". Retrying: %v\n", retryCount, exp.GetElapsedTime(), resource, err)
+			return err
+		}
+
+		bytes = b
+		return nil
 	}
 
-	return http.Get(req)
+	err := backoff.Retry(getFn, exp)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	return bytes, nil
 }
 
 func search(owner string, repository string, queryString string) ([]byte, error) {
