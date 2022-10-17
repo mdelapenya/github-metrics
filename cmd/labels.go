@@ -34,7 +34,7 @@ func getLabels() {
 
 	failedLabels := []string{}
 
-	formatter := formatters.Get(Format)
+	formatter := formatters.Get(Format, OutputFile)
 
 	for _, label := range labels {
 		lr, err := getLabel(label.Name)

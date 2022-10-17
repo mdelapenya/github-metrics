@@ -7,16 +7,26 @@ import (
 )
 
 var Formatters = []string{
-	"console",
+	"console", "json",
 }
 
 type Formatter interface {
 	Format(*types.LabelResponse)
 }
 
-func Get(formatter string) Formatter {
+type FileBaseFormatter struct {
+	file string
+}
+
+func Get(formatter string, outputFile string) Formatter {
 	if formatter == "console" {
 		return ConsoleFormatter{}
+	} else if formatter == "json" {
+		return JsonFormatter{
+			FileBaseFormatter: FileBaseFormatter{
+				file: outputFile,
+			},
+		}
 	}
 
 	return nil
