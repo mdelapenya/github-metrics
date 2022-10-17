@@ -36,17 +36,20 @@ func getLabels() {
 	for _, label := range labels {
 		err := getLabel(label.Name)
 		if err != nil {
-			log.Printf("failed to get issues count for '%s' label. Will be retried later. error: %v", label.Name, err)
+			log.Printf("failed to get issues count for '%s' label. Will be retried later. error: %v\n", label.Name, err)
 			failedLabels = append(failedLabels, label)
 			continue
 		}
 	}
 
-	for _, failedLabel := range failedLabels {
-		err := getLabel(failedLabel.Name)
-		if err != nil {
-			log.Printf("failed to get issues count for '%s' label. Continuing. error: %v", failedLabel.Name, err)
-			continue
+	if len(failedLabels) > 0 {
+		log.Println("retrying failed labels")
+		for _, failedLabel := range failedLabels {
+			err := getLabel(failedLabel.Name)
+			if err != nil {
+				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel.Name, err)
+				continue
+			}
 		}
 	}
 }
