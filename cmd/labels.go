@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
+	"github.com/mdelapenya/github-metrics/formatters"
 	"github.com/mdelapenya/github-metrics/github"
 	"github.com/mdelapenya/github-metrics/types"
 	"github.com/spf13/cobra"
@@ -33,6 +34,8 @@ func getLabels() {
 
 	failedLabels := []string{}
 
+	formatter := formatters.Get(Format)
+
 	for _, label := range labels {
 		lr, err := getLabel(label.Name)
 		if err != nil {
@@ -40,7 +43,7 @@ func getLabels() {
 			failedLabels = append(failedLabels, label.Name)
 			continue
 		}
-		log.Printf("Number of Issues for %s: %d\n", lr.Label, lr.Count)
+		formatter.Format(lr)
 	}
 
 	if len(failedLabels) > 0 {
@@ -51,7 +54,7 @@ func getLabels() {
 				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel, err)
 				continue
 			}
-			log.Printf("Number of Issues for %s: %d\n", lr.Label, lr.Count)
+			formatter.Format(lr)
 		}
 	}
 }
