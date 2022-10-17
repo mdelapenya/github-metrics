@@ -2,12 +2,13 @@ package cmd
 
 import (
 	"encoding/json"
-	"log"
 
 	"github.com/mdelapenya/github-metrics/formatters"
 	"github.com/mdelapenya/github-metrics/github"
+	"github.com/mdelapenya/github-metrics/log"
 	"github.com/mdelapenya/github-metrics/types"
 	"github.com/spf13/cobra"
+	"go.uber.org/zap"
 )
 
 func init() {
@@ -26,13 +27,13 @@ var labelsCmd = &cobra.Command{
 func getLabels() {
 	response, err := github.Labels(Owner, Repository)
 	if err != nil {
-		log.Fatalf("failed to proceed the request: %v", err)
+		log.Fatal("failed to proceed the request: %v", err)
 	}
 
 	var labels []types.Label
 	json.Unmarshal(response, &labels)
 
-	log.Printf("Repository contains %d labels\n", len(labels))
+	log.Info("Processing labels", zap.Int("count", len(labels)))
 	failedLabels := []string{}
 
 	formatter := formatters.Get(Format, OutputFile)
@@ -40,7 +41,7 @@ func getLabels() {
 	for _, label := range labels {
 		lr, err := getLabel(label.Name)
 		if err != nil {
-			log.Printf("failed to get issues count for '%s' label. Will be retried later. error: %v\n", label.Name, err)
+			log.Warn("failed to get issues count. Will be retried later", zap.String("label", label.Name), zap.Error(err))
 			failedLabels = append(failedLabels, label.Name)
 			continue
 		}
@@ -48,11 +49,11 @@ func getLabels() {
 	}
 
 	if len(failedLabels) > 0 {
-		log.Printf("retrying failed labels: %v", failedLabels)
+		log.Info("Retrying failed labels", zap.Strings("labels", failedLabels))
 		for _, failedLabel := range failedLabels {
 			lr, err := getLabel(failedLabel)
 			if err != nil {
-				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel, err)
+				log.Warn("failed to get issues count. Continuing.", zap.String("label", failedLabel), zap.Error(err))
 				continue
 			}
 			formatter.Format(lr)

@@ -1,12 +1,13 @@
 package github
 
 import (
-	"fmt"
 	"net/url"
 	"time"
 
 	backoff "github.com/cenkalti/backoff/v4"
 	"github.com/mdelapenya/github-metrics/http"
+	"github.com/mdelapenya/github-metrics/log"
+	"go.uber.org/zap"
 )
 
 func IssuesCountByLabel(owner string, repository string, label string) ([]byte, error) {
@@ -68,7 +69,7 @@ func searchWithBackoff(req http.Request) ([]byte, error) {
 		b, err := http.Get(req)
 		if err != nil {
 			retryCount++
-			fmt.Printf(">>> [%d][%s] error while processing the Github search for \"%s\". Retrying: %v\n", retryCount, exp.GetElapsedTime(), req.URL, err)
+			log.Warn("error while processing the Github search. Retrying.", zap.Int("retryCount", retryCount), zap.Duration("elapsedTime", exp.GetElapsedTime()), zap.String("url", req.URL), zap.Error(err))
 			return err
 		}
 

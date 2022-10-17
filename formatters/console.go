@@ -1,13 +1,13 @@
 package formatters
 
 import (
-	"log"
-
+	"github.com/mdelapenya/github-metrics/log"
 	"github.com/mdelapenya/github-metrics/types"
+	"go.uber.org/zap"
 )
 
 type ConsoleFormatter struct{}
 
 func (cf ConsoleFormatter) Format(lr *types.LabelResponse) {
-	log.Printf("Number of Issues for %s: %d\n", lr.Label, lr.Count)
+	log.Info("Number of Issues", zap.String("label", lr.Label), zap.Int("count", lr.Count))
 }

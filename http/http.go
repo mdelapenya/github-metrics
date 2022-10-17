@@ -7,6 +7,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/mdelapenya/github-metrics/log"
+	"go.uber.org/zap"
 )
 
 // Request configures an HTTP request
@@ -74,15 +77,24 @@ func Put(r Request) ([]byte, error) {
 func request(r Request) ([]byte, error) {
 	escapedURL := r.GetURL()
 
-	errorArgsFunc := func(err error) string {
-		return fmt.Sprintf("error: %v, method: %v, escapedURL: %v", err, r.method, escapedURL)
+	errorArgsFunc := func(err error) []log.Field {
+		return []log.Field{
+			zap.Error(err),
+			zap.String("method", r.method),
+			zap.String("url", escapedURL),
+		}
 	}
 
 	var body io.Reader
 	if r.Payload != "" {
 		body = bytes.NewReader([]byte(r.Payload))
-		errorArgsFunc = func(err error) string {
-			return fmt.Sprintf("error: %v, method: %v, escapedURL: %v, payload: %v", err, r.method, escapedURL, r.Payload)
+		errorArgsFunc = func(err error) []log.Field {
+			return []log.Field{
+				zap.Error(err),
+				zap.String("method", r.method),
+				zap.String("payload", r.Payload),
+				zap.String("url", escapedURL),
+			}
 		}
 	} else {
 		body = nil
@@ -90,7 +102,7 @@ func request(r Request) ([]byte, error) {
 
 	req, err := http.NewRequest(r.method, escapedURL, body)
 	if err != nil {
-		fmt.Println(errorArgsFunc(err))
+		log.Error("error creating the request", errorArgsFunc(err)...)
 		return []byte{}, err
 	}
 
@@ -106,14 +118,14 @@ func request(r Request) ([]byte, error) {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		fmt.Println(errorArgsFunc(err))
+		log.Error("error performing the request", errorArgsFunc(err)...)
 		return []byte{}, err
 	}
 	defer resp.Body.Close()
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println(errorArgsFunc(err))
+		log.Error("error reading the body response", errorArgsFunc(err)...)
 		return []byte{}, err
 	}
 
