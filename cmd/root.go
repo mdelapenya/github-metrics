@@ -19,6 +19,12 @@ var rootCmd = &cobra.Command{
 	Use:   "ghm",
 	Short: "Github Metrics is a very fast Github metrics calculator",
 	Long:  `A Fast and Flexible Github metrics calculator with 🧡 by mdelapenya and friends in Go.`,
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		if Owner == "" || Repository == "" {
+			return fmt.Errorf("neither Owner or Repository cannot be empty")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Hello ghm!")
 	},
