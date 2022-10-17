@@ -10,7 +10,7 @@ import (
 )
 
 func IssuesCountByLabel(owner string, repository string, label string) ([]byte, error) {
-	return search(owner, repository, "label:"+url.QueryEscape(label))
+	return search(owner, repository, `label:"`+url.QueryEscape(label)+`"`)
 }
 
 func Labels(owner string, repository string) ([]byte, error) {
