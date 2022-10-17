@@ -31,23 +31,23 @@ func getLabels() {
 	var labels []types.Label
 	json.Unmarshal(response, &labels)
 
-	failedLabels := []types.Label{}
+	failedLabels := []string{}
 
 	for _, label := range labels {
 		err := getLabel(label.Name)
 		if err != nil {
 			log.Printf("failed to get issues count for '%s' label. Will be retried later. error: %v\n", label.Name, err)
-			failedLabels = append(failedLabels, label)
+			failedLabels = append(failedLabels, label.Name)
 			continue
 		}
 	}
 
 	if len(failedLabels) > 0 {
-		log.Println("retrying failed labels")
+		log.Printf("retrying failed labels: %v", failedLabels)
 		for _, failedLabel := range failedLabels {
-			err := getLabel(failedLabel.Name)
+			err := getLabel(failedLabel)
 			if err != nil {
-				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel.Name, err)
+				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel, err)
 				continue
 			}
 		}
