@@ -34,34 +34,35 @@ func getLabels() {
 	failedLabels := []string{}
 
 	for _, label := range labels {
-		err := getLabel(label.Name)
+		lr, err := getLabel(label.Name)
 		if err != nil {
 			log.Printf("failed to get issues count for '%s' label. Will be retried later. error: %v\n", label.Name, err)
 			failedLabels = append(failedLabels, label.Name)
 			continue
 		}
+		log.Printf("Number of Issues for %s: %d\n", lr.Label, lr.Count)
 	}
 
 	if len(failedLabels) > 0 {
 		log.Printf("retrying failed labels: %v", failedLabels)
 		for _, failedLabel := range failedLabels {
-			err := getLabel(failedLabel)
+			lr, err := getLabel(failedLabel)
 			if err != nil {
 				log.Printf("failed to get issues count for '%s' label. Continuing. error: %v\n", failedLabel, err)
 				continue
 			}
+			log.Printf("Number of Issues for %s: %d\n", lr.Label, lr.Count)
 		}
 	}
 }
 
-func getLabel(label string) error {
+func getLabel(label string) (*types.LabelResponse, error) {
 	response, err := github.IssuesCountByLabel(Owner, Repository, label)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	var issuesSearch types.IssuesSearch
 	json.Unmarshal(response, &issuesSearch)
-	log.Printf("Number of Issues for %s: %d\n", label, issuesSearch.TotalCount)
-	return nil
+	return &types.LabelResponse{Label: label, Count: issuesSearch.TotalCount}, nil
 }

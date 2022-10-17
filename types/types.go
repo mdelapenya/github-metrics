@@ -2,6 +2,11 @@ package types
 
 import "time"
 
+type LabelResponse struct {
+	Label string `json:"label"`
+	Count int    `json:"count"`
+}
+
 type IssuesSearch struct {
 	TotalCount        int     `json:"total_count"`
 	IncompleteResults bool    `json:"incomplete_results"`
