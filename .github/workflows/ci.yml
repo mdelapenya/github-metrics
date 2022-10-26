@@ -1,0 +1,32 @@
+name: build-test
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+jobs:
+  run:
+    name: Run
+    runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.18' # The Go version to download (if necessary) and use.
+      - run: go version
+
+      - name: Run tests
+        run: |
+          go run gotest.tools/gotestsum \
+            --format short-verbose \
+            --packages="./..."
