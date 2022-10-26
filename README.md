@@ -1,5 +1,7 @@
 # Github Metrics
 
+[![build-test](https://github.com/mdelapenya/github-metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/mdelapenya/github-metrics/actions/workflows/ci.yml)
+
 This project is a PoC to explore the Github API and retrieve certain metrics from a given repository.
 
 It will perform certain API calls using HTTP requests and backoff strategies to mitigate rate limits in the Github API.
