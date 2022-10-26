@@ -4,7 +4,7 @@ This project is a PoC to explore the Github API and retrieve certain metrics fro
 
 It will perform certain API calls using HTTP requests and backoff strategies to mitigate rate limits in the Github API.
 
-The project is implemented as a CLI, including commands and subcommands, and flags.
+The project is implemented as a CLI, including commands and subcommands, and flags. Please run every command with `--help` or `-h` to discover its usage.
 
 #### Common flags
 
