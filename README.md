@@ -9,75 +9,55 @@ It will perform certain API calls using HTTP requests and backoff strategies to 
 We'd like to get, for each label, how many issues are labelled for the label.
 
 ```shell
-ghm labels -O testcontainers -R testcontainers-java
+ghm issues labels -O testcontainers -R testcontainers-go
 ```
 
 It will first get all the labels in the repository, and for each it will get the total number of issues, printing the result in console:
 
 ```
-2022/10/17 12:14:18 Number of Issues for area/bitbucket-pipelines: 4
-2022/10/17 12:14:18 Number of Issues for area/docker-compose: 85
-2022/10/17 12:14:19 Number of Issues for area/java10: 0
-2022/10/17 12:14:19 Number of Issues for area/java9: 4
-2022/10/17 12:14:19 Number of Issues for area/logging: 3
-2022/10/17 12:14:19 Number of Issues for area/okhttp: 5
-2022/10/17 12:14:20 Number of Issues for area/reusable-containers: 12
-2022/10/17 12:14:20 Number of Issues for area/shading: 26
-2022/10/17 12:14:21 Number of Issues for area/test frameworks: 16
->>> [1][34.555458ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"blocker"". Retrying: GET request failed with 403
->>> [2][623.698666ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"blocker"". Retrying: GET request failed with 403
->>> [3][2.102354333s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"blocker"". Retrying: GET request failed with 403
->>> [4][4.467763291s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"blocker"". Retrying: GET request failed with 403
->>> [5][8.253982875s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"blocker"". Retrying: GET request failed with 403
-2022/10/17 12:14:34 Number of Issues for blocker: 15
-2022/10/17 12:14:35 Number of Issues for client/docker-for-mac: 19
-2022/10/17 12:14:35 Number of Issues for client/docker-for-windows: 30
-2022/10/17 12:14:36 Number of Issues for client/docker-machine: 16
-2022/10/17 12:14:36 Number of Issues for client/in-container: 11
-2022/10/17 12:14:36 Number of Issues for client/podman: 1
-2022/10/17 12:14:37 Number of Issues for dependencies: 2485
-2022/10/17 12:14:37 Number of Issues for don't merge: 1
-2022/10/17 12:14:37 Number of Issues for github_actions: 70
-2022/10/17 12:14:38 Number of Issues for good first issue: 54
->>> [1][34.670667ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [2][664.969917ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [3][1.266380333s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [4][2.616506s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [5][5.042094042s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [6][9.08359175s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [7][14.21232325s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [8][20.822407708s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [9][24.447099s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [10][28.889268292s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [11][33.018220125s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [12][37.902986667s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [13][41.856133625s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [14][45.882069125s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [15][51.820445417s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
->>> [16][55.450425292s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"gradle-wrapper"". Retrying: GET request failed with 403
-2022/10/17 12:15:37 Number of Issues for gradle-wrapper: 22
-2022/10/17 12:15:38 Number of Issues for hacktoberfest: 18
-2022/10/17 12:15:38 Number of Issues for help wanted: 77
-2022/10/17 12:15:39 Number of Issues for java: 1290
-2022/10/17 12:15:39 Number of Issues for modules/azure: 16
-2022/10/17 12:15:40 Number of Issues for modules/cassandra: 12
-2022/10/17 12:15:40 Number of Issues for modules/clickhouse: 3
-2022/10/17 12:15:40 Number of Issues for modules/cockroachdb: 10
-2022/10/17 12:15:41 Number of Issues for modules/consul: 7
-2022/10/17 12:15:42 Number of Issues for modules/couchbase: 42
->>> [1][35.041875ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [2][503.25725ms] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [3][1.612612083s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [4][4.374175041s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [5][7.582782666s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [6][11.606067083s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [7][17.906634458s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [8][21.476221791s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [9][28.34628175s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [10][34.366296583s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [11][39.523539291s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [12][42.206797666s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [13][45.536260541s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
->>> [14][51.1106055s] error while processing the Github search for "https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-java+label:"modules%2Fdb2"". Retrying: GET request failed with 403
-2022/10/17 12:16:42 Number of Issues for modules/db2: 2
+{"level":"info","ts":1666776981.5668511,"caller":"log/logger.go:38","msg":"Processing labels","count":18}
+{"level":"warn","ts":1666776981.601449,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":1,"elapsedTime":0.034401667,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666776982.191045,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":2,"elapsedTime":0.62400025,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666776983.668726,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":3,"elapsedTime":2.101689958,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666776986.034081,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":4,"elapsedTime":4.467057167,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666776989.820698,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":5,"elapsedTime":8.253687333,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666776994.496547,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":6,"elapsedTime":12.929558833,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777000.46876,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":7,"elapsedTime":18.901799292,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"compose\"","error":"GET request failed with 403"}
+{"level":"info","ts":1666777003.696355,"caller":"log/logger.go:38","msg":"compose","count":12}
+{"level":"info","ts":1666777004.304099,"caller":"log/logger.go:38","msg":"dependencies","count":99}
+{"level":"info","ts":1666777004.647705,"caller":"log/logger.go:38","msg":"go","count":10}
+{"level":"info","ts":1666777004.954628,"caller":"log/logger.go:38","msg":"good-first-issue","count":10}
+{"level":"info","ts":1666777005.331155,"caller":"log/logger.go:38","msg":"hacktoberfest","count":15}
+{"level":"info","ts":1666777005.499369,"caller":"log/logger.go:38","msg":"os/mac","count":0}
+{"level":"info","ts":1666777005.8398788,"caller":"log/logger.go:38","msg":"os/windows","count":2}
+{"level":"info","ts":1666777006.142145,"caller":"log/logger.go:38","msg":"podman","count":7}
+{"level":"info","ts":1666777006.376652,"caller":"log/logger.go:38","msg":"python","count":1}
+{"level":"info","ts":1666777006.730922,"caller":"log/logger.go:38","msg":"type/bc-break","count":10}
+{"level":"warn","ts":1666777006.765012,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":1,"elapsedTime":0.034032667,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777007.129405,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":2,"elapsedTime":0.398426125,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777007.7629418,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":3,"elapsedTime":1.031964792,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777009.401166,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":4,"elapsedTime":2.670194458,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777013.4986129,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":5,"elapsedTime":6.767663167,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777020.106155,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":6,"elapsedTime":13.3752205,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777023.715019,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":7,"elapsedTime":16.984120417,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777028.1540868,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":8,"elapsedTime":21.423204667,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777032.2879229,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":9,"elapsedTime":25.557060958,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777037.169069,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":10,"elapsedTime":30.4382275,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777041.1225789,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":11,"elapsedTime":34.391753792,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777045.123342,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":12,"elapsedTime":38.392541708,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777051.056513,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":13,"elapsedTime":44.32573925,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777054.6858501,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":14,"elapsedTime":47.955094583,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777058.238646,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":15,"elapsedTime":51.507907583,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777062.5850592,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":16,"elapsedTime":55.85433475,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fbug\"","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777062.585168,"caller":"log/logger.go:42","msg":"failed to get issues count. Will be retried later","label":"type/bug","error":"GET request failed with 403"}
+{"level":"warn","ts":1666777062.619869,"caller":"log/logger.go:42","msg":"error while processing the Github search. Retrying.","retryCount":1,"elapsedTime":0.034648709,"url":"https://api.github.com/search/issues?q=repo:testcontainers/testcontainers-go+label:\"type%2Fdocs\"","error":"GET request failed with 403"}
+{"level":"info","ts":1666777063.912952,"caller":"log/logger.go:38","msg":"type/docs","count":36}
+{"level":"info","ts":1666777064.6252182,"caller":"log/logger.go:38","msg":"type/feature","count":62}
+{"level":"info","ts":1666777065.251224,"caller":"log/logger.go:38","msg":"type/housekeeping","count":46}
+{"level":"info","ts":1666777065.526626,"caller":"log/logger.go:38","msg":"type/question","count":6}
+{"level":"info","ts":1666777065.8371048,"caller":"log/logger.go:38","msg":"type/security","count":5}
+{"level":"info","ts":1666777066.095794,"caller":"log/logger.go:38","msg":"type/test-flakiness","count":3}
+{"level":"info","ts":1666777066.4683468,"caller":"log/logger.go:38","msg":"type/test-improvement","count":12}
+{"level":"info","ts":1666777066.4684732,"caller":"log/logger.go:38","msg":"Retrying failed labels","labels":["type/bug"]}
+{"level":"info","ts":1666777067.092025,"caller":"log/logger.go:38","msg":"type/bug","count":39}
 ```
