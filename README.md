@@ -61,3 +61,23 @@ It will first get all the labels in the repository, and for each it will get the
 {"level":"info","ts":1666777066.4684732,"caller":"log/logger.go:38","msg":"Retrying failed labels","labels":["type/bug"]}
 {"level":"info","ts":1666777067.092025,"caller":"log/logger.go:38","msg":"type/bug","count":39}
 ```
+
+## Code Search
+
+We'd like to get how many occurrences of a string are present across all Github repositories. For that we are going to perform an authenticated call to `https://cs.github.com/api/count`, which is still in _Technology Preview_ and there is no API available yet.
+
+For that reason, we need to export the `GHM_GITHUB_COOKIE` environment variable, so that the code is able to pass it as an HTTP header to the HTTP request.
+
+> To get your HTTP cookie with Github, simply use a sniffer (i.e Chrome's network tab), go to github.com and get the cookie from Headers section once you are logged in.
+
+To use this command, please define a search query using this syntax: https://cs.github.com/about/syntax 
+
+```shell
+ghm cs --query "testcontainers-go v0.15.0 path:go.mod"
+```
+
+It will print the count of the files using the application formatter (default is console log):
+
+```
+{"level":"info","ts":1666777433.197243,"caller":"log/logger.go:38","msg":"Total files","count":66}
+```
