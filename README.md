@@ -4,9 +4,29 @@ This project is a PoC to explore the Github API and retrieve certain metrics fro
 
 It will perform certain API calls using HTTP requests and backoff strategies to mitigate rate limits in the Github API.
 
+The project is implemented as a CLI, including commands and subcommands, and flags.
+
+#### Common flags
+
+The following flags apply to all commands and subcommands.
+
+| Flag | Type | Default | Required | Description |
+| ---- | ---- | ------- | -------- | ----------- |
+| --format, -F | string | `console` | No | Response format |
+| --output, -o | string | `output.txt` | No | Output file where to write the results |
+
 ## Labels
 
 We'd like to get, for each label, how many issues are labelled for the label.
+
+#### Flags
+
+| Flag | Type | Default | Required | Description |
+| ---- | ---- | ------- | -------- | ----------- |
+| --owner, -O | string | empty | Yes | Github owner (organization or user) |
+| --repository, -R | string | empty | Yes | Github repository |
+
+#### Usage
 
 ```shell
 ghm issues labels -O testcontainers -R testcontainers-go
@@ -69,6 +89,14 @@ We'd like to get how many occurrences of a string are present across all Github 
 For that reason, we need to export the `GHM_GITHUB_COOKIE` environment variable, so that the code is able to pass it as an HTTP header to the HTTP request.
 
 > To get your HTTP cookie with Github, simply use a sniffer (i.e Chrome's network tab), go to github.com and get the cookie from Headers section once you are logged in.
+
+#### Flags
+
+| Flag | Type | Default | Required | Description |
+| ---- | ---- | ------- | -------- | ----------- |
+| --query, -Q | string | empty | Yes | Search query |
+
+#### Usage
 
 To use this command, please define a search query using this syntax: https://cs.github.com/about/syntax 
 
