@@ -2,6 +2,12 @@ package types
 
 import "time"
 
+type CodeCountResponse struct {
+	Count       int         `json:"count"`
+	Mode        int         `json:"mode"`
+	QueryErrors interface{} `json:"query_errors"`
+}
+
 type LabelResponse struct {
 	Label string `json:"label"`
 	Count int    `json:"count"`
