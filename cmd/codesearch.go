@@ -12,9 +12,11 @@ import (
 )
 
 var Query string
+var Title string
 
 func init() {
 	csCmd.PersistentFlags().StringVarP(&Query, "query", "Q", "", "Search query")
+	csCmd.PersistentFlags().StringVarP(&Title, "title", "T", "Total files", "Title to be used in the output message")
 
 	rootCmd.AddCommand(csCmd)
 }
@@ -46,7 +48,7 @@ func getCount() {
 	formatter := formatters.Get(Format, OutputFile)
 
 	lr := &types.MetricResponse{
-		Message: "Total files",
+		Message: Title,
 		Count:   result.Count,
 	}
 

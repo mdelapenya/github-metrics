@@ -97,17 +97,18 @@ For that reason, we need to export the `GHM_GITHUB_COOKIE` environment variable,
 | Flag | Type | Default | Required | Description |
 | ---- | ---- | ------- | -------- | ----------- |
 | --query, -Q | string | empty | Yes | Search query |
+| --title, -T | string | Total files | No | Title to be used in the output message |
 
 #### Usage
 
 To use this command, please define a search query using this syntax: https://cs.github.com/about/syntax 
 
 ```shell
-ghm cs --query "testcontainers-go v0.15.0 path:go.mod"
+ghm cs --query "testcontainers-go v0.15.0 path:go.mod" --title "Testcontainers for Go"
 ```
 
 It will print the count of the files using the application formatter (default is console log):
 
 ```
-{"level":"info","ts":1666777433.197243,"caller":"log/logger.go:38","msg":"Total files","count":66}
+{"level":"info","ts":1666777433.197243,"caller":"log/logger.go:38","msg":"Testcontainers for Go","count":66}
 ```
