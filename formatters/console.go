@@ -9,5 +9,5 @@ import (
 type ConsoleFormatter struct{}
 
 func (cf ConsoleFormatter) Format(lr *types.MetricResponse) {
-	log.Info("Number of Issues", zap.String("message", lr.Message), zap.Int("count", lr.Count))
+	log.Info(lr.Message, zap.Int("count", lr.Count))
 }
