@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/mdelapenya/github-metrics/formatters"
 	"github.com/mdelapenya/github-metrics/github"
@@ -11,8 +12,31 @@ import (
 	"go.uber.org/zap"
 )
 
+var Owner string
+var Repository string
+
 func init() {
-	rootCmd.AddCommand(labelsCmd)
+	issuesCmd.PersistentFlags().StringVarP(&Owner, "owner", "O", "", "Github owner (organization or user)")
+	issuesCmd.PersistentFlags().StringVarP(&Repository, "repository", "R", "", "Github repository")
+
+	rootCmd.AddCommand(issuesCmd)
+
+	issuesCmd.AddCommand(labelsCmd)
+}
+
+var issuesCmd = &cobra.Command{
+	Use:   "issues",
+	Short: "Subcommand for issues",
+	Long:  "Subcommand to plug-in other subcommands related to issues",
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		if Owner == "" || Repository == "" {
+			return fmt.Errorf("neither Owner or Repository cannot be empty")
+		}
+		return nil
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+		//
+	},
 }
 
 var labelsCmd = &cobra.Command{
