@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/mdelapenya/github-metrics/formatters"
 	"github.com/mdelapenya/github-metrics/github"
@@ -22,6 +23,12 @@ var csCmd = &cobra.Command{
 	Use:   "cs",
 	Short: "Return the number of occurrences for a search string",
 	Long:  "Return the number of occurrences for a search string, scrapping the HTML outputted by cs.github.com, locating the HTML element with the total count",
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		if Query == "" {
+			return fmt.Errorf("search query cannot be empty")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		getCount()
 	},
