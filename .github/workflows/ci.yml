@@ -26,7 +26,4 @@ jobs:
       - run: go version
 
       - name: Run tests
-        run: |
-          go run gotest.tools/gotestsum \
-            --format short-verbose \
-            --packages="./..."
+        run: go run gotest.tools/gotestsum --format short-verbose --packages="./..."
