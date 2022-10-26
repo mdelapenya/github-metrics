@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/mdelapenya/github-metrics/formatters"
 	"github.com/mdelapenya/github-metrics/github"
@@ -47,9 +48,16 @@ func getCount() {
 
 	formatter := formatters.Get(Format, OutputFile)
 
+	queryMap := map[string]string{}
+	queryTokens := strings.Fields(Query)
+	for i, token := range queryTokens {
+		queryMap[fmt.Sprintf("query.%d", i)] = token
+	}
+
 	lr := &types.MetricResponse{
-		Message: Title,
-		Count:   result.Count,
+		Message:  Title,
+		Count:    result.Count,
+		Metadata: queryMap,
 	}
 
 	formatter.Format(lr)
