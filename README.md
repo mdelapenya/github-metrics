@@ -90,7 +90,7 @@ We'd like to get how many occurrences of a string are present across all Github 
 
 For that reason, we need to export the `GHM_GITHUB_COOKIE` environment variable, so that the code is able to pass it as an HTTP header to the HTTP request.
 
-> To get your HTTP cookie with Github, simply use a sniffer (i.e Chrome's network tab), go to github.com and get the cookie from Headers section once you are logged in.
+> To get your HTTP session cookie from Github, simply use a sniffer (i.e Chrome's network tab), go to github.com and get the session cookie from Headers section once you are logged in.
 
 #### Flags
 
