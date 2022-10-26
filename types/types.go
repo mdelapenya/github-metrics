@@ -8,9 +8,9 @@ type CodeCountResponse struct {
 	QueryErrors interface{} `json:"query_errors"`
 }
 
-type LabelResponse struct {
-	Label string `json:"label"`
-	Count int    `json:"count"`
+type MetricResponse struct {
+	Message string `json:"message"`
+	Count   int    `json:"count"`
 }
 
 type IssuesSearch struct {

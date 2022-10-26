@@ -61,7 +61,7 @@ func getLabels() {
 	}
 }
 
-func getLabel(label string) (*types.LabelResponse, error) {
+func getLabel(label string) (*types.MetricResponse, error) {
 	response, err := github.IssuesCountByLabel(Owner, Repository, label)
 	if err != nil {
 		return nil, err
@@ -69,5 +69,5 @@ func getLabel(label string) (*types.LabelResponse, error) {
 
 	var issuesSearch types.IssuesSearch
 	json.Unmarshal(response, &issuesSearch)
-	return &types.LabelResponse{Label: label, Count: issuesSearch.TotalCount}, nil
+	return &types.MetricResponse{Message: label, Count: issuesSearch.TotalCount}, nil
 }

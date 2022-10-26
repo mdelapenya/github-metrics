@@ -11,7 +11,7 @@ var Formatters = []string{
 }
 
 type Formatter interface {
-	Format(*types.LabelResponse)
+	Format(*types.MetricResponse)
 }
 
 type FileBaseFormatter struct {

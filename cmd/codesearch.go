@@ -38,9 +38,9 @@ func getCount() {
 
 	formatter := formatters.Get(Format, OutputFile)
 
-	lr := &types.LabelResponse{
-		Label: "files",
-		Count: result.Count,
+	lr := &types.MetricResponse{
+		Message: "files",
+		Count:   result.Count,
 	}
 
 	formatter.Format(lr)

@@ -8,6 +8,6 @@ import (
 
 type ConsoleFormatter struct{}
 
-func (cf ConsoleFormatter) Format(lr *types.LabelResponse) {
-	log.Info("Number of Issues", zap.String("label", lr.Label), zap.Int("count", lr.Count))
+func (cf ConsoleFormatter) Format(lr *types.MetricResponse) {
+	log.Info("Number of Issues", zap.String("message", lr.Message), zap.Int("count", lr.Count))
 }

@@ -12,11 +12,11 @@ import (
 func TestFormatJson_One(t *testing.T) {
 	tmp := t.TempDir()
 	defer func() {
-		data = make([]*types.LabelResponse, 0)
+		data = make([]*types.MetricResponse, 0)
 	}()
 
 	formatter := Get("json", filepath.Join(tmp, "output_one.json"))
-	formatter.Format(&types.LabelResponse{Label: "label", Count: 1})
+	formatter.Format(&types.MetricResponse{Message: "label", Count: 1})
 
 	labels, err := formatter.(JsonFormatter).read()
 	require.Nil(t, err)
@@ -26,7 +26,7 @@ func TestFormatJson_One(t *testing.T) {
 func TestFormatJson_Multiple(t *testing.T) {
 	tmp := t.TempDir()
 	defer func() {
-		data = make([]*types.LabelResponse, 0)
+		data = make([]*types.MetricResponse, 0)
 	}()
 
 	length := 125
@@ -34,7 +34,7 @@ func TestFormatJson_Multiple(t *testing.T) {
 	formatter := Get("json", filepath.Join(tmp, "output_multiple.json"))
 
 	for i := 0; i < length; i++ {
-		lr := &types.LabelResponse{Label: fmt.Sprintf("label_%d", i), Count: i}
+		lr := &types.MetricResponse{Message: fmt.Sprintf("label_%d", i), Count: i}
 		formatter.Format(lr)
 	}
 
