@@ -93,5 +93,5 @@ func getLabel(label string) (*types.MetricResponse, error) {
 
 	var issuesSearch types.IssuesSearch
 	json.Unmarshal(response, &issuesSearch)
-	return &types.MetricResponse{Message: label, Count: issuesSearch.TotalCount}, nil
+	return &types.MetricResponse{Title: label, Count: issuesSearch.TotalCount}, nil
 }

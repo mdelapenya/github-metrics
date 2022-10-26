@@ -16,7 +16,7 @@ func TestFormatJson_One(t *testing.T) {
 	}()
 
 	formatter := Get("json", filepath.Join(tmp, "output_one.json"))
-	formatter.Format(&types.MetricResponse{Message: "label", Count: 1})
+	formatter.Format(&types.MetricResponse{Title: "label", Count: 1})
 
 	labels, err := formatter.(JsonFormatter).read()
 	require.Nil(t, err)
@@ -34,7 +34,7 @@ func TestFormatJson_Multiple(t *testing.T) {
 	formatter := Get("json", filepath.Join(tmp, "output_multiple.json"))
 
 	for i := 0; i < length; i++ {
-		lr := &types.MetricResponse{Message: fmt.Sprintf("label_%d", i), Count: i}
+		lr := &types.MetricResponse{Title: fmt.Sprintf("label_%d", i), Count: i}
 		formatter.Format(lr)
 	}
 

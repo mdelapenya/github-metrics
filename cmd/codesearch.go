@@ -55,7 +55,7 @@ func getCount() {
 	}
 
 	lr := &types.MetricResponse{
-		Message:  Title,
+		Title:    Title,
 		Count:    result.Count,
 		Metadata: queryMap,
 	}

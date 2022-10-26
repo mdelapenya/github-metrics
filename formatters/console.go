@@ -17,5 +17,5 @@ func (cf ConsoleFormatter) Format(lr *types.MetricResponse) {
 		fields = append(fields, zap.String(k, v))
 	}
 
-	log.Info(lr.Message, fields...)
+	log.Info(lr.Title, fields...)
 }

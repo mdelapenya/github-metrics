@@ -9,7 +9,7 @@ type CodeCountResponse struct {
 }
 
 type MetricResponse struct {
-	Message  string            `json:"message"`
+	Title    string            `json:"title"`
 	Count    int               `json:"count"`
 	Metadata map[string]string `json:"metadata"`
 }
