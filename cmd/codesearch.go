@@ -58,6 +58,7 @@ func getCount() {
 		Title:    Title,
 		Count:    result.Count,
 		Metadata: queryMap,
+		Query:    Query,
 	}
 
 	formatter.Format(lr)

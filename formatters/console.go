@@ -11,6 +11,7 @@ type ConsoleFormatter struct{}
 func (cf ConsoleFormatter) Format(lr *types.MetricResponse) {
 	fields := []log.Field{
 		zap.Int("count", lr.Count),
+		zap.String("query", lr.Query),
 	}
 
 	for k, v := range lr.Metadata {

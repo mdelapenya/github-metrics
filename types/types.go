@@ -12,6 +12,7 @@ type MetricResponse struct {
 	Title    string            `json:"title"`
 	Count    int               `json:"count"`
 	Metadata map[string]string `json:"metadata"`
+	Query    string            `json:"query"`
 }
 
 type IssuesSearch struct {
